@@ -377,12 +377,7 @@ main.o: ../src/main.cpp ../include/Macro.hpp \
 		../include/Common.hpp \
 		../include/Bucket.hpp \
 		../include/Parse.hpp \
-		../include/Parameter.hpp \
-		../include/htmlcxx/html/ParserDom.h \
-		../include/htmlcxx/html/ParserSax.h \
-		../include/htmlcxx/html/Node.h \
-		../include/htmlcxx/html/ParserSax.tcc \
-		../include/htmlcxx/html/tree.h
+		../include/Parameter.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 Book.o: ../src/Book.cpp ../include/Book.hpp \
@@ -390,12 +385,7 @@ Book.o: ../src/Book.cpp ../include/Book.hpp \
 		../include/Bucket.hpp \
 		../include/Parse.hpp \
 		../include/Macro.hpp \
-		../include/Parameter.hpp \
-		../include/htmlcxx/html/ParserDom.h \
-		../include/htmlcxx/html/ParserSax.h \
-		../include/htmlcxx/html/Node.h \
-		../include/htmlcxx/html/ParserSax.tcc \
-		../include/htmlcxx/html/tree.h
+		../include/Parameter.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Book.o ../src/Book.cpp
 
 Parameter.o: ../src/Parameter.cpp ../include/Parameter.hpp \
@@ -408,11 +398,6 @@ Parse.o: ../src/Parse.cpp ../include/Parse.hpp \
 		../include/Common.hpp \
 		../include/Bucket.hpp \
 		../include/Parameter.hpp \
-		../include/htmlcxx/html/ParserDom.h \
-		../include/htmlcxx/html/ParserSax.h \
-		../include/htmlcxx/html/Node.h \
-		../include/htmlcxx/html/ParserSax.tcc \
-		../include/htmlcxx/html/tree.h \
 		/usr/local/include/opencv2/opencv.hpp \
 		/usr/local/include/opencv2/core.hpp \
 		/usr/local/include/opencv2/core/cvdef.h \

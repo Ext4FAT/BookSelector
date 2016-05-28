@@ -59,7 +59,7 @@ int test(int argc, char** argv)
     init = clock();
     _SplitLine_;
     cout << "\033[31;1m [" << basename(argv[0]) << "] Developed By" << endl;
-    imageBeepOne("./Configuration/ICON/idler.png", 70, 13);
+    imageBeepOne(_ICON_, 70, 13);
     //imageBeep("./Configuration/ICON/book2.jpeg", "./Configuration/ICON/book3.png");
     _SplitLine_;
     //Show usage
@@ -69,6 +69,9 @@ int test(int argc, char** argv)
     start = clock();
     Parameter myPara(argc, argv);
     myPara.configInfo();
+    _SplitLine_;
+    end = clock();
+    outputDuration("Show Configuration", start, end);
     _SplitLine_;
     end = clock();
     outputDuration("Analysis Parameters", start, end);

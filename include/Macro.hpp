@@ -12,10 +12,11 @@
 #define _MSS_ std::map<std::string, std::string>
 
 //Dir
-#define _CACHE_ "./Cache/"
-#define _PAGE_ "./Cache/Page/"
-#define _PIC_ "./Cache/Pic/"
-#define _CSSSTYLE_ "./Configuration/CSS/github2.css"
+#define _CACHE_ "../Cache/"
+#define _PAGE_ "../Cache/Page/"
+#define _PIC_ "../Cache/Pic/"
+#define _ICON_ "../Configuration/ICON/idler.png"
+#define _CSSSTYLE_ "../Configuration/CSS/github2.css"
 
 //Convert
 #define NAME2STR(_VAR_) (#_VAR_)

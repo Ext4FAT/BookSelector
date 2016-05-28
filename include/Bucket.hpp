@@ -7,7 +7,7 @@
 template <class T>  
 class Bucket {
 public:
-    class Iterator:public std::iterator {
+    class Iterator /*:public std::iterator*/ {
     public:
         Iterator(Bucket<T> &B): B_(B) {
             curBuck_ = index_ = 0;
