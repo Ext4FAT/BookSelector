@@ -7,6 +7,6 @@
 *.py~
 *.o
 *.user
-./Backup/*
+Backup/*
 *.*~
 .gitignore~
