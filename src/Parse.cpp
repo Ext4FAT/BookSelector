@@ -7,7 +7,8 @@
 using std::ifstream;
 using std::istreambuf_iterator;
 
-#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 using namespace cv;
 
 void Parse::generateBookSet(const string &catergoryDir, BookSet &bs)
