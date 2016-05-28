@@ -1,5 +1,5 @@
 *.html
-~[README].md
+Release/*.md
 *.swap
 *.cpp~
 *.h~
