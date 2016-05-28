@@ -1,5 +1,4 @@
-## Craw
-libhtmlcxx
+## Crawl
 ### DEVELOPER
 ![pic](./IDLER.png)
 ### DEPENDENCY
@@ -11,7 +10,7 @@ libopencv-dev
 ```
 
 ### Usage
-```c++
+```
 [USAGE]
 	[-b browser] #Browser you want to display result
 	[-k keyword] #Field you intend to search
@@ -25,7 +24,7 @@ libopencv-dev
 
 ```
 ### Default Configuration
-```c++11
+```
 [CONFIG]
 	Browser: firefox
 	Keyword: C++
