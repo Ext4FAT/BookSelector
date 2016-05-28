@@ -1,0 +1,3 @@
+libhtmlcxx
+pandoc
+beep
