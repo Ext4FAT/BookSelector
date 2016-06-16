@@ -57,13 +57,15 @@ namespace Parse
     void replaceBracket(string &str);
 
     /** @brief create directory, if exist return*/
-    int createDir(const char* filepath);
+    int createDir(const string &filepath);
 
     /** @brief download Html file and saved to cache */
-    int wget(string keyword, int max);
+    int wget(const string& keyword, int max, bool isReload, int step = 20);
     int wget(Parameter &myPara, int max = 1000);
 
     /** @brief ImageBeep: read image and beep output on the screen */
-    int imageBeepOne(string imgpath, int width = 70, int height = 16);
-    int imageBeepTwo(string imgpath1, string imgpath2);
+    int ShowSignature(string imgpath, int width = 70, int height = 16);
+    int ShowIcons(string imgpath1, string imgpath2);
+
+    inline int execCommand(const string& cmd);
 }

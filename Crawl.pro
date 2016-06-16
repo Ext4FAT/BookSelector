@@ -3,9 +3,13 @@
 # Project created by QtCreator 2016-04-09T17:21:50
 #
 #-------------------------------------------------
+QT       += core
 
 TARGET = Crawl
+CONFIG   += console
 CONFIG   += c++11
+
+TEMPLATE = app
 
 SOURCES += \
     src/main.cpp \

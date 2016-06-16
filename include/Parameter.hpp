@@ -15,12 +15,12 @@ public:
     int startupBrowser();
 
     /** @brief Get Attribute */
-    const string& Keyword() { return keyword_; }
-    const string& Filename() { return filename_; }
-    const string& Browser() { return browser_; }
-    bool isReload() const { return reload_; }
-    bool isSaveMarkDown() const { return savemd_; }
-    bool isDisplay() const { return disp_; }
+    inline const string& Keyword() { return keyword_; }
+    inline const string& Filename() { return filename_; }
+    inline const string& Browser() { return browser_; }
+    inline bool isReload() const { return reload_; }
+    inline bool isSaveMarkDown() const { return savemd_; }
+    inline bool isDisplay() const { return disp_; }
 
 private:
     string keyword_;

@@ -59,7 +59,7 @@ int test(int argc, char** argv)
     init = clock();
     _SplitLine_;
     cout << "\033[31;1m [" << basename(argv[0]) << "] Developed By" << endl;
-    imageBeepOne(_ICON_, 70, 13);
+    ShowSignature(_ICON_, 70, 13);
     //imageBeep("./Configuration/ICON/book2.jpeg", "./Configuration/ICON/book3.png");
     _SplitLine_;
     //Show usage
@@ -101,6 +101,8 @@ int test(int argc, char** argv)
 int main(int argc, char** argv)
 {
     test(argc, argv);
+
+
     //imageBeepOne("./Configuration/ICON/hello.png", 90);
     //imageBeepOne("./Configuration/ICON/world.png", 90);
     //imageBeepOne("./Configuration/ICON/helloword.png", 160, 18);

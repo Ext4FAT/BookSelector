@@ -204,6 +204,8 @@ ostream& operator <<(ostream &out, BookSet &bs)
     bs.outputTableHead(out);
     //BookBucket& theBucket = bs.bookBucket();
     //topk = !topk || bs.size() < topk? bs.size(): topk;
+
+    //bs.bookBucket() << out << endl;
     out << bs.bookBucket() << endl;
     return out;
 }

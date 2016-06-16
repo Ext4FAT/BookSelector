@@ -168,17 +168,17 @@ void Parse::replaceBracket(string &str)
 }
 #endif
 
-int Parse::createDir(const char* filepath)
+int Parse::createDir(const string &filepath)
 {
     string cmd = "mkdir ";
-    if (-1 == access(filepath, F_OK)) {
+    if (-1 == access(filepath.c_str(), F_OK)) {
         cmd += filepath;
-        return system(cmd.c_str());
+        return execCommand(cmd);
     }
     return 1;
 }
 
-int Parse::wget(string keyword, int max)
+int Parse::wget(const string& keyword, int max, bool isReload, int step)
 {
     string keywordDir = _PAGE_ + keyword + "/";
     string url= "http://book.douban.com/tag/" + keyword + "?start=";
@@ -187,39 +187,117 @@ int Parse::wget(string keyword, int max)
     //Create dir, if exists return
     ret = createDir(_CACHE_);
     ret = createDir(_PAGE_);
-    ret = createDir(keywordDir.c_str());
+    ret = createDir(keywordDir);
+
+    /**TODO, if exist files and noReload return */
+    if (ret && !isReload)
+        return -1;
+    //ret += createDir(_PIC_);
+
     //Download by wget
-    for (int start = 0; start < max; start += 20) {
-        string num = to_string(start);
-        string cmd = "wget -q -O " + keywordDir + num + ".html " + url + num + type  + " 1>/dev/null 2>/dev/null ";
-        ret += system(cmd.c_str());
+    for (int start = 0; start < max; start += step) {
+        string cmd = "wget -t 2 -T 10 -q -O 1>/dev/null 2>/dev/null " +
+                        keywordDir + to_string(start) + ".html " +
+                        url + to_string(start) + type;
+        ret += execCommand(cmd);
     }
     return ret;
+}
+
+int Parse::execCommand(const string& cmd)
+{
+    return system(cmd.c_str());
 }
 
 int Parse::wget(Parameter &myPara, int max)
 {
-    string keywordDir = _PAGE_ + myPara.Keyword() + "/";
-    string url= "http://book.douban.com/tag/" + myPara.Keyword() + "?start=";
-    string type = "&type=R";
-    int ret = 0;
-    //Create dir, if exists return
-    ret = createDir(_CACHE_);
-    ret = createDir(_PAGE_);
-    ret = createDir(keywordDir.c_str());
-    /**TODO, if exist files and noReload return */
-    if (ret && !myPara.isReload())
-        return -1;
-    //ret += createDir(_PIC_);
-    //Download by wget
-    for (int start = 0; start < max; start += 20) {
-        string num = to_string(start);
-        string cmd = "wget -t 2 -T 10 -q -O " + keywordDir + num + ".html " + url + num + type  + " 1>/dev/null 2>/dev/null ";
-        ret += system(cmd.c_str());
-    }
-    return ret;
-
+    return wget(myPara.Keyword(), max, myPara.isReload());
 }
+
+inline void outputPixel(uchar value, int index, char x = 'z')
+{
+    if (value) {
+        cout << ("\033["+ to_string(index+30) +";1m") << x;
+    }
+    else
+        cout << " ";
+}
+
+typedef vector<vector<Point>> ContourSet;
+void outputOneImage(Mat &img, Size sz)
+{
+    static string _DISPLAY_ = "IDLER";
+    Mat contour = Mat::zeros(sz, CV_8U);
+    ContourSet contourSet;
+    Mat res, bg, fg;
+    resize(img, img, sz);
+    threshold(img, bg, 250, 255, CV_THRESH_BINARY_INV);
+    threshold(img, fg, 150, 128, CV_THRESH_BINARY_INV);
+    findContours(bg, contourSet, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+    drawContours(contour, contourSet, -1, Scalar(255));
+    res = contour + fg;// & binary;
+    uchar* ptr = res.data;
+    int index = 0;
+    for (int i = 0; i < sz.height; i++) {
+        for (int j = 0; j < sz.width; j++) {
+            uchar value = *ptr++;
+            if (value == 255)
+                outputPixel(value, 5, _DISPLAY_[index++%_DISPLAY_.size()]);
+            else
+                outputPixel(value, 4, _DISPLAY_[index++%_DISPLAY_.size()]);
+        }
+        cout << endl;
+    }
+    cout << "\033[0m";
+}
+
+int Parse::ShowSignature(string imgpath, int width, int height)
+{
+    Mat src = imread(imgpath, IMREAD_GRAYSCALE);
+    //threshold(src, src, 150, 255, 1);
+    outputOneImage(src, Size(width, height));
+    return 0;
+}
+
+int Parse::ShowIcons(string imgpath1, string imgpath2)
+{
+    Mat src1 = imread(imgpath1, IMREAD_GRAYSCALE);
+    Mat src2 = imread(imgpath2, IMREAD_GRAYSCALE);
+    threshold(src1, src1, 150, 255, 1);
+    threshold(src2, src2, 150, 255, 1);
+    //Size showsz(30, 22);
+    //outputTwoImage(src1, src2, showsz);
+    return 0;
+}
+    //ContourSet contours;
+
+
+    /*
+    findContours(src, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+    Rect cut = {0, 0, 0, 0};
+    for (auto con: contours)
+        cut |= minAreaRect(con).boundingRect();
+    cout << cut << endl;
+    rectangle(src, cut, Scalar(255), 2);
+    imshow("src", src);
+    waitKey(0);
+    Mat ROI = src(cut);
+    resize(src, src, showsz);
+    uchar* ptr = src.data;
+    for (int i = 0; i < src.rows; i++) {
+        for (int j = 0; j < src.cols; j++)
+            if (*ptr++) {
+                //cout << ("\033["+ to_string(index) +";1m") << '.';
+                cout << ("\033[31;1m") << 'z';
+                usleep(10000);
+            }
+            else
+                cout << " ";
+        cout << endl;
+    }
+    return 0;
+}
+*/
 
 /*
 inline void outputPixel(uchar value, unsigned us = 0)
@@ -261,94 +339,6 @@ void outputOneImage(Mat &img, Size sz)
         cout << endl;
     }
     cout << "\033[0m";
-}
-*/
-
-
-inline void outputPixel(uchar value, int index, char x = 'z')
-{
-    if (value) {
-        cout << ("\033["+ to_string(index+30) +";1m") << x;
-    }
-    else
-        cout << " ";
-}
-
-typedef vector<vector<Point>> ContourSet;
-void outputOneImage(Mat &img, Size sz)
-{
-    static string _DISPLAY_ = "IDLER";
-    Mat contour = Mat::zeros(sz, CV_8U);
-    ContourSet contourSet;
-    Mat res, bg, fg;
-    resize(img, img, sz);
-    threshold(img, bg, 250, 255, CV_THRESH_BINARY_INV);
-    threshold(img, fg, 150, 128, CV_THRESH_BINARY_INV);
-    findContours(bg, contourSet, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
-    drawContours(contour, contourSet, -1, Scalar(255));
-    res = contour + fg;// & binary;
-    uchar* ptr = res.data;
-    int index = 0;
-    for (int i = 0; i < sz.height; i++) {
-        for (int j = 0; j < sz.width; j++) {
-            uchar value = *ptr++;
-            if (value == 255)
-                outputPixel(value, 5, _DISPLAY_[index++%_DISPLAY_.size()]);
-            else
-                outputPixel(value, 4, _DISPLAY_[index++%_DISPLAY_.size()]);
-        }
-        cout << endl;
-    }
-    cout << "\033[0m";
-}
-
-
-//typedef vector<vector<Point>> ContourSet;
-int Parse::imageBeepOne(string imgpath, int width, int height)
-{
-    Mat src = imread(imgpath, IMREAD_GRAYSCALE);
-    //threshold(src, src, 150, 255, 1);
-    outputOneImage(src, Size(width, height));
-    return 0;
-}
-
-int Parse::imageBeepTwo(string imgpath1, string imgpath2)
-{
-    Mat src1 = imread(imgpath1, IMREAD_GRAYSCALE);
-    Mat src2 = imread(imgpath2, IMREAD_GRAYSCALE);
-    threshold(src1, src1, 150, 255, 1);
-    threshold(src2, src2, 150, 255, 1);
-    Size showsz(30, 22);
-    //outputTwoImage(src1, src2, showsz);
-    return 0;
-}
-    //ContourSet contours;
-
-
-    /*
-    findContours(src, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
-    Rect cut = {0, 0, 0, 0};
-    for (auto con: contours)
-        cut |= minAreaRect(con).boundingRect();
-    cout << cut << endl;
-    rectangle(src, cut, Scalar(255), 2);
-    imshow("src", src);
-    waitKey(0);
-    Mat ROI = src(cut);
-    resize(src, src, showsz);
-    uchar* ptr = src.data;
-    for (int i = 0; i < src.rows; i++) {
-        for (int j = 0; j < src.cols; j++)
-            if (*ptr++) {
-                //cout << ("\033["+ to_string(index) +";1m") << '.';
-                cout << ("\033[31;1m") << 'z';
-                usleep(10000);
-            }
-            else
-                cout << " ";
-        cout << endl;
-    }
-    return 0;
 }
 */
 

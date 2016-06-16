@@ -107,9 +107,9 @@ public:
     */
 
     /** @brief get member varible */
-    BookBucket& bookBucket() {return books_;}
-    string& category() {return category_;}
-    size_t size() const {return count_;}
+    inline BookBucket& bookBucket() {return books_;}
+    inline string& category() {return category_;}
+    inline size_t size() const {return count_;}
 
 private:
     BookBucket books_;
