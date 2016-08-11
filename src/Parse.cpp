@@ -74,7 +74,8 @@ int Parse::extractInfoFromDom(DomTree &dom, DomTreeIter &it, Item &Info)
     for (auto attr: it->attributes())
         Info.insert(attr);
     //Recurrent Search
-    children_num = dom.number_of_children(it);
+    children_num = it.number_of_children();
+    //children_num = dom.number_of_children(it);
     for (cnt = 0; cnt < children_num; cnt++) {
         child = dom.child(it, cnt);
         if (!extractInfoFromDom(dom, child, Info)) {

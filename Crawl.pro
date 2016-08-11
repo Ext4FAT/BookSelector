@@ -3,7 +3,7 @@
 # Project created by QtCreator 2016-04-09T17:21:50
 #
 #-------------------------------------------------
-QT       += core
+#QT       += core
 
 TARGET = Crawl
 CONFIG   += console
