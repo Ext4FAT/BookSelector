@@ -89,19 +89,13 @@ void Parameter::analysisParameter(int argc, char** argv)
 
 int Parameter::startupBrowser()
 {
-    static vector<string> _Browser_ = {"firefox", "opera",
-                                       "midori", "qupzilla",
-                                       "chrome"};
-
-    static vector<string> _CmdPath_ = {"/usr/bin/firefox", "/usr/bin/opera",
-                                       "/usr/bin/midori", "/usr/bin/qupzilla",
-                                       "/opt/google/chrome/chrome"};
-
-    string cmd = " ./" + filename_ + ".html 1>/dev/null 2>/dev/null &";
-
-    for (int i = 0; i < _Browser_.size(); i++)
-        if (browser_ == _Browser_[i])
-            cmd = _CmdPath_[i] + cmd;
-
+    static map<string, string> _Browser2Cmdpath_ = {
+                                                        {"firefox", "/usr/bin/firefox"},
+                                                        {"opera", "/usr/bin/opera"},
+                                                        {"midori", "/usr/bin/midori"},
+                                                        {"qupzilla", "/usr/bin/qupzilla"},
+                                                        {"chrome", "/opt/google/chrome/chrome"}
+                                                   };
+    string cmd = _Browser2Cmdpath_[browser_] + " ./" + filename_ + ".html 1>/dev/null 2>/dev/null &";
     return system(cmd.c_str());
 }

@@ -28,11 +28,6 @@ void Parse::generateBookSet(const string &catergoryDir, BookSet &bs)
 
 void Parse::analysisHtml(const string &htmlfile, list<Item> &infoList)
 {
-    /*
-    ifstream htmlfileStream(htmlfile);
-    string html(istreambuf_iterator<char>(htmlfileStream), istreambuf_iterator<char>());
-    */
-
     //Read html to string
     ifstream htmlFileStream;
     string html;
@@ -42,8 +37,6 @@ void Parse::analysisHtml(const string &htmlfile, list<Item> &infoList)
     htmlFileStream.seekg(0, std::ios::beg);
     htmlFileStream.read(&html[0], html.size());
     htmlFileStream.close();
-
-
     //Parse html
     htmlcxx::HTML::ParserDom parser;
     DomTree dom = parser.parseTree(html);
@@ -56,11 +49,11 @@ void Parse::analysisHtml(const string &htmlfile, list<Item> &infoList)
                 break;
         }
     //Traversal
-    for ( ; dom.is_valid(it); it = dom.next_sibling(it)) {
-        if (!it->isTag())   continue;
-        infoList.push_back(Item());
-        extractInfoFromDom(dom, it, infoList.back());
-    }
+    for ( ; dom.is_valid(it); it = dom.next_sibling(it))
+        if (it->isTag()) {
+            infoList.push_back(Item());
+            extractInfoFromDom(dom, it, infoList.back());
+        }
 }
 
 
