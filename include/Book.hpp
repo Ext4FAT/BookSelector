@@ -45,8 +45,6 @@ private:
     string author_;
 };
 
-//typedef shared_ptr<BookInfo> BookInfo_Ptr;
-//typedef vector<BookInfo> BookList;
 typedef Bucket<BookInfo> BookBucket;
 typedef Buck<BookInfo> BookBuck;
 
@@ -82,30 +80,10 @@ public:
      * @param rank: if rank == -1, output all books
      */
     void outputBook(ostream &out, OUPUT_TPYE OT, double rank, double rank2 = -1);
-    /**
-     * @brief operator << : output all books in this bookset
-     */
+    /** @brief operator << : output all books in this bookset */
     friend ostream& operator <<(ostream& out, BookSet& bs);
-    /**
-     * @brief outputTableHead: output markdown table head
-     */
+    /** @brief outputTableHead: output markdown table head */
     inline void outputTableHead(ostream &out);
-    /*
-    void test()
-    {
-       BookBucket::Iterator it = books_.begin();
-       BookBucket::Iterator end = books_.end();
-    }
-    */
-
-
-
-    /*
-    BookSet operator &(BookSet& bs);
-    BookSet operator |(BookSet& bs);
-    BookSet operator ^(BookSet& bs);
-    */
-
     /** @brief get member varible */
     inline BookBucket& bookBucket() {return books_;}
     inline string& category() {return category_;}
@@ -115,5 +93,4 @@ private:
     BookBucket books_;
     string category_;
     size_t count_;
-    //map<long long, int> id_index_; //id-index map
 };
