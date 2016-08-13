@@ -10,19 +10,36 @@ private:
     static const string _DB_SEARCH_;
     static const unsigned _START_;
 public:
-    /** @brief default constructor */
+    /**
+     * @brief default constructor
+    */
     BookInfo();
-    /** @brief BookInfo: extract information from Item */
+    /**
+     * @brief BookInfo: extract information from Item
+     * @param item  extract information from item
+    */
     explicit BookInfo(Item& item);
-    /** @brief ~BookInfo: deconstructor */
+    /**
+     * @brief ~BookInfo: deconstructor
+    */
     ~BookInfo();
-    /** @brief convert: extract Bookinfo from Item, swap PTR!!! , after this operator Item disabled */
+    /**
+     * @brief convert: extract Bookinfo from Item, swap PTR!!! , after this operator Item disabled
+     * @param item  convert item to bookinfo
+     * @return 0: OK,    <0: ERROR
+     */
     int convert(Item &item);
-    /** @brief rank: return book's rank, because client cann't modify rank */
+    /**
+     * @brief rank: return book's rank, because client cann't modify rank
+     */
     double rank() const { return rank_; }
-    /** @brief operator <<: output bookinfo*/
+    /**
+     * @brief operator <<: output bookinfo
+     */
     friend ostream & operator <<(ostream &out, BookInfo &b);
-    /** @brief operator: use to order books by url */
+    /**
+     * @brief operator: use to order books by url
+     */
     bool operator >(const BookInfo &b) const { return pl_ < b.pl_ || (pl_ == b.pl_ && id_ > b.id_) ; }
     bool operator <(const BookInfo &b) const { return pl_ > b.pl_ || (pl_ == b.pl_ && id_ < b.id_) ; }
     bool operator >=(const BookInfo &b) const { return !(*this < b); }
@@ -61,13 +78,22 @@ enum OUPUT_TPYE {
 
 class BookSet {
 public:
-    /** @brief default constructor */
+    /**
+     * @brief default constructor
+     */
     BookSet();
-    /** @brief assign the category */
+    /**
+     * @brief assign the category
+     */
     explicit BookSet(const string& keyword);
-    /** @brief extract information from Item List */
+    /**
+     * @brief extract information from Item List
+     */
     explicit BookSet(const string& keyword, list<Item>& lbi);
-    /** @brief add items into booklist */
+    /**
+     * @brief add items into booklist
+     * @param lbi  extract bookinfo from list Item
+    */
     void generate(list<Item>& lbi);
     /**
      * @brief addBook: add BookInfo to bookset
@@ -80,11 +106,17 @@ public:
      * @param rank: if rank == -1, output all books
      */
     void outputBook(ostream &out, OUPUT_TPYE OT, double rank, double rank2 = -1);
-    /** @brief operator << : output all books in this bookset */
+    /**
+     * @brief operator << : output all books in this bookset
+     */
     friend ostream& operator <<(ostream& out, BookSet& bs);
-    /** @brief outputTableHead: output markdown table head */
+    /**
+     * @brief outputTableHead: output markdown table head
+     */
     inline void outputTableHead(ostream &out);
-    /** @brief get member varible */
+    /**
+     * @brief get member varible
+     */
     inline BookBucket& bookBucket() {return books_;}
     inline string& category() {return category_;}
     inline size_t size() const {return count_;}

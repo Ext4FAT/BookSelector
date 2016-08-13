@@ -121,44 +121,10 @@ void Bucket<T>::outputOver(ostream &out, int pos) {
 template <class T>
 void Bucket<T>::outputTOP(ostream &out, int topk) {
     int index = 0;
-    for (int i = buckets_.size()-1; i >= 0; i--)
+    for (int i = buckets_.size() - 1; i >= 0; i--)
         for (auto item: buckets_[i]) {
             out << "|"<< ++index << item << endl;
             if (index == topk)
                 return;
         }
 }
-
-
-
-
-
-
-/*
-class Bucket {
-public:
-    Bucket (int Size) {
-        buckets_.resize(Size);
-    }
-    Bucket (int level, int per) {
-        levels_(level, per);
-        int sum = 1;
-        for (auto level: levels_)
-            sum *= level;
-        buckets_.resize(sum);
-    }
-
-    Bucket (vector<int>& l) {
-		levels_.assign(l.begin(), l.end());
-		int sum = 1;
-		for (auto level: levels_)
-			sum *= level;
-		buckets_.resize(sum);
-	}
-	
-private:
-    vector<int> levels_; 
-    vector<set<int>> buckets_; 
-    set<string> urls_; 
-}; 
-*/
