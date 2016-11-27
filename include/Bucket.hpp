@@ -43,6 +43,9 @@ public:
         //Buck<T>::iterator index_;
     };
 public:
+    typedef Iterator iterator;
+
+
     /** @brief Bucket: Construction */
     Bucket() { buckets_.resize(_defaultSize_); }
     explicit Bucket(int size) { buckets_.resize(size); }
