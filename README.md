@@ -38,6 +38,4 @@ libopencv-dev
 ```
 ### Demo
 ![demo](./crawl.gif)
- 
-
 
