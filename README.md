@@ -1,7 +1,11 @@
-## Crawl
-### DEVELOPER
-![pic](./IDLER.png)
-### DEPENDENCY
+## BookSelector
+
+### Introduction
+`BookSelector` help people to select books in certain field, developed by `qtcreator`. `BookSelector` crawl the book information from `Douban` and show the booklist according to book rank.
+### Developer
+![pic](./Resource/IDLER.png)
+
+### Dependence
 ```
 libhtmlcxx-dev
 libboost-dev
@@ -37,6 +41,6 @@ libopencv-dev
 
 ```
 ### Demo
-![demo](./crawl.gif)
+![demo](./Resource/crawl.gif)
 
 
