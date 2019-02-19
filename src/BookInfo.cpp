@@ -4,7 +4,6 @@
 	> Mail: zyy34472@gmail.com
 	> Created Time: Fri 22 Jan 2016 09:29:56 AM CST
  ************************************************************************/
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -20,7 +19,6 @@
 using std::string;
 using std::vector;
 using std::map;
-
 
 //Create Boook Information from map<string, string>:  <nodename, content>
 BookInfo* createBookInfo(_MSS_ &mss)
@@ -87,7 +85,6 @@ BookInfo* createBookInfo(_MSS_ &mss)
 		bi->author_ += " [" + desc[i] + "](" + db_search + desc[i] +")\t"; 
     return bi; 
 }
-
 
 //Analysis info from Dom-tree 
 int extractInfoFromDom(_DomTree_ &dom, _DomTreeIter_ it, int level, _MSS_ &Info)
@@ -217,143 +214,3 @@ int main()
     outputBookInfo(booklist, keyword, 100); 
     return 0; 
 }
-
-
-
-
-
-
-
-
-
-    /* 
-    int i = 0; 
-    
-    for (it = dom.begin(), end = dom.end(); it != end; it++) {
-        if (it->isTag() && it->tagName() == "li") {
-            it->parseAttributes(); 
-            if (it->attribute("class").second == "subject-item") {
-                unsigned int count = dom.number_of_siblings(it); 
-                do {
-                    if (it->isTag()) {
-                        std::cout << "[" << count << "]" <<  it->text() << std::endl; 
-                        next = it; 
-                        while(!(++next)->isTag())   ; 
-                        unsigned int subcount = dom.number_of_siblings(next); 
-                        do {
-                            if(next->isTag()){
-                                next->parseAttributes(); 
-                                std::cout << "\t[" << subcount <<  "]" << next->text() << std::endl;
-                                for (auto attr: next->attributes()) {
-                                    std::cout << "\t" << attr.second << std::endl; 
-                                }
-                            }
-                            next = dom.next_sibling(next);     
-                        }while(subcount--); 
-
-                    }
-                    it = dom.next_sibling(it); 
-                }while(count--); 
-                return  -1;                
-            }
-        }
-    }
-
-    */
-    
-    /* 
-     for (it = dom.begin(), end = dom.end(); it != end; it++) {
-        it->parseAttributes(); 
-        if (it->isTag() && 0 == it->tagName().compare("li")) {
-            if (it->attribute("class").second == "subject-item") {
-                it++; 
-                while(!(it->isTag()))  {
-                    it++; 
-                }
-                it->parseAttributes(); 
-                //next = dom.begin(it); 
-                //next->parseAttributes(); 
-                std::cout << "\t" << it->text() << std::endl;  
-                for (auto attr: it->attributes()) {
-                    cout << "\t\t" << attr.first << "\t" << attr.second << std::endl; 
-                }
-                next = dom.begin(it); 
-                next->parseAttributes();   
-                std::cout << it->attribute("href").second << std::endl; 
-                std::cout << "\t" << it->text() << std::endl; 
-                */
-    /* 
-    for (auto d: dom) {
-        if (!d.isTag()) continue;
-        if (d.tagName().compare("li")) continue; 
-        d.parseAttributes(); 
-        if (d.attribute("class").second == "subject-item") {
-            std::cout << "[" << i++ << "]" << std::endl; 
-            std::cout << d.attribute("class").second  << std::endl; 
-        }
-        for (auto attr: d.attributes()) {
-            std::cout << "\t" << attr.first << "\t" << attr.second << std::endl; 
-        }*/
-        //std::cout << std::endl; 
-    
-    
-    /* 
-    it  = dom.begin(); 
-    end = dom.end(); 
-    for (; it != end; it++) {
-        //it->parseAttributes(); 
-        if (it->isTag() && 0 == it->tagName().compare("div")){
-            //std::cout << it->text() << std::endl;
-            it->parseAttributes(); 
-            next = dom.begin(it); 
-            //next->parseAttributes(); 
-            std::cout << next->text() << std::endl;
-            std::cout << "\t" << next->text() << std::endl;  
-            for (auto attr: next->attributes()) {
-                cout << "\t\t" << attr.first << "\t" << attr.second << std::endl; 
-            }           
-            //next = dom.begin(it); 
-            //next->parseAttributes();   
-            //std::cout << it->attribute("href").second << std::endl; 
-            //std::cout << "\t" << it->text() << std::endl; 
-        }
-    }
-    */
-
-     
-   
-        //if(d.tagName().compare("a") == 0)
-        /* 
-        if (d.tagName().compare("div") == 0) {
-            d.parseAttributes(); 
-            if (d.attribute("class").first) {
-                std::cout << "\t" << d.attribute("class").second << std::endl; 
-            }
-            for (auto attr: d.attributes()) {
-                //std::cout << "\t" << attr.second << std::endl; 
-                if (attr.second == "pic" || attr.second == "info"|| attr.second == "pub" || attr.second == "star clearfix")
-                std::cout << "\t" << attr.first << "\t" << attr.second << endl;     
-            }
-        }
-        else if (d.tagName().compare("a") == 0) {
-            d.parseAttributes();
-            //std::pair<string>
-            if (d.attribute("title").first){
-                std::cout << "a" << std::endl; 
-                std::cout << "\t" << d.attribute("title").second << std::endl; 
-                std::cout << "\t" << d.attribute("href").second << std::endl; 
-            }
-            */
-            /* 
-            for (auto attr: d.attributes()) {
-                std::cout << "\t" << attr.first << "\t" << attr.second << endl;     
-            }
-            */
-
-
-        /* 
-        if (d.attribute("href").first) {  
-            std::cout << "\t" << d.attribute("href").second << std::endl; 
-        }
-        
-    }*/
